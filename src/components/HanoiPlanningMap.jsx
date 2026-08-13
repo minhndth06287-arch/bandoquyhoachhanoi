@@ -39,13 +39,12 @@ export default function HanoiPlanningMap({
       minZoom: 8,
       maxZoom: 17,
       transformRequest: (url) => {
-        // Redirect absolute gateway.datviet.ai URLs through local Vite proxy on localhost
-        if (typeof window !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)) {
-          if (url.startsWith('https://gateway.datviet.ai')) {
-            return {
-              url: url.replace('https://gateway.datviet.ai', window.location.origin)
-            };
-          }
+        // Redirect absolute gateway.datviet.ai URLs through the proxy
+        // (Cloudflare Worker in production, local Vite proxy on localhost)
+        if (url.startsWith('https://gateway.datviet.ai')) {
+          return {
+            url: url.replace('https://gateway.datviet.ai', MAP_BASE_URL)
+          };
         }
         return { url };
       },
