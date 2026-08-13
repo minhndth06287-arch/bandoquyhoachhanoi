@@ -1,7 +1,7 @@
 // MapLibre GL Configuration for Hanoi Master Plan (Tầm nhìn 100 năm)
 
 const isLocal = typeof window !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
-export const MAP_BASE_URL = isLocal ? '' : 'https://gateway.datviet.ai';
+export const MAP_BASE_URL = isLocal ? '' : 'https://snowy-bush-19a5.minhndth06287.workers.dev';
 export const GLYPHS_URL = `${MAP_BASE_URL}/font/{fontstack}/{range}.pbf`;
 
 export const HANOI_CENTER = [105.834, 21.028];
