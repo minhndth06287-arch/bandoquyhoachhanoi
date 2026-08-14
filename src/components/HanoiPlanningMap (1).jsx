@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+
+// MapLibre GL v6 ships as ESM-only and needs the worker URL set explicitly,
+// otherwise the worker silently hangs in production builds and the map
+// stays blank with no console errors.
+maplibregl.setWorkerUrl(maplibreWorkerUrl);
+
 import {
   MAP_BASE_URL,
   GLYPHS_URL,
@@ -61,10 +68,10 @@ export default function HanoiPlanningMap({
             type: 'vector',
             url: `${MAP_BASE_URL}/api/tiles/hanoi/tilejson.json`
           },
-          metro: { type: 'geojson', data: '/metro-hanoi.geojson' },
-          metrop: { type: 'geojson', data: '/metro-hanoi-planned.geojson' },
-          gadk: { type: 'geojson', data: '/metro-hanoi-ga-dukien.geojson' },
-          apt: { type: 'geojson', data: '/hanoi-airports.geojson' }
+          metro: { type: 'geojson', data: `${import.meta.env.BASE_URL}metro-hanoi.geojson` },
+          metrop: { type: 'geojson', data: `${import.meta.env.BASE_URL}metro-hanoi-planned.geojson` },
+          gadk: { type: 'geojson', data: `${import.meta.env.BASE_URL}metro-hanoi-ga-dukien.geojson` },
+          apt: { type: 'geojson', data: `${import.meta.env.BASE_URL}hanoi-airports.geojson` }
         },
         layers: [
           {
